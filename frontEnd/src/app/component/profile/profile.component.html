@@ -1,0 +1,66 @@
+<div class="profile-container">
+  <h2>Profile Information</h2>
+  <div class="profile-details">
+    <div class="profile-item">
+      <strong>First Name:</strong> {{ userObj.firstName }}
+    </div>
+    <div class="profile-item">
+      <strong>Last Name:</strong> {{ userObj.lastName }}
+    </div>
+    <div class="profile-item">
+      <strong>Email:</strong> {{ userObj.email }}
+    </div>
+    <div class="profile-item">
+      <strong>Gender:</strong> {{ userObj.gender }}
+    </div>
+    <div class="profile-item">
+      <strong>Phone:</strong> {{ userObj.tel }}
+    </div>
+    <div class="profile-item">
+      <strong>Address:</strong> {{ userObj.address }}
+    </div>
+    <div class="profile-item" *ngIf="userObj.avatar">
+      <strong>Avatar:</strong>
+      <img [src]="userObj.avatar" alt="Avatar" class="profile-avatar">
+    </div>
+    <div class="profile-item" *ngIf="userObj.cv">
+      <strong>CV:</strong>
+      <a [href]="userObj.cv" target="_blank">View CV</a>
+    </div>
+  </div>
+
+
+</div>
+
+<!-- Add some basic styling -->
+<style>
+  .profile-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .profile-details {
+    margin-top: 20px;
+  }
+
+  .profile-item {
+    margin-bottom: 10px;
+  }
+
+  .profile-item strong {
+    font-weight: bold;
+  }
+
+  .profile-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+  }
+
+  .btn {
+    margin-top: 20px;
+  }
+</style>

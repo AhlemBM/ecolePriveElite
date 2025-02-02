@@ -1,0 +1,65 @@
+/* Améliorer l'apparence de la navbar */
+.navbar {
+  background-color: #fff; /* Blanc pour un look propre */
+  border-bottom: 2px solid #f1f1f1; /* Ajouter une ligne sous la navbar */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre douce pour donner de la profondeur */
+}
+
+.navbar-brand img {
+  max-height: 50px; /* Assurez-vous que l'image du logo ne soit pas trop grande */
+}
+
+.nav-item .nav-link {
+  font-size: 1.1rem; /* Agrandir légèrement la taille des liens */
+  color: #333; /* Couleur du texte sombre */
+  padding: 8px 20px; /* Ajouter un peu de padding pour l'espacement */
+  transition: all 0.3s ease-in-out; /* Ajouter une transition fluide pour les effets de hover */
+}
+
+.nav-item .nav-link:hover {
+  color: #007bff; /* Changer la couleur en bleu au survol */
+}
+
+.nav-item.dropdown .dropdown-menu {
+  background-color: #fff; /* Couleur de fond de la dropdown */
+  border: 1px solid #f1f1f1; /* Bordure légère */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre de la dropdown */
+}
+
+.nav-item.dropdown .dropdown-menu .dropdown-item {
+  color: #333; /* Couleur des éléments de menu */
+  padding: 10px 20px;
+  transition: all 0.3s ease;
+}
+
+.nav-item.dropdown .dropdown-menu .dropdown-item:hover {
+  background-color: #007bff;
+  color: #fff; /* Couleur blanche au survol des éléments */
+}
+
+.btn-outline-danger {
+  border: 2px solid #ff4d4f;
+  color: #ff4d4f;
+  font-weight: bold;
+}
+
+.btn-outline-danger:hover {
+  background-color: #ff4d4f;
+  color: white;
+}
+
+.nav-item .nav-link {
+  font-weight: 600; /* Donner du poids aux liens */
+}
+
+/* Pour rendre la navbar responsive */
+@media (max-width: 991px) {
+  .navbar-nav {
+    text-align: center;
+  }
+
+  .navbar-collapse {
+    margin-top: 20px;
+  }
+}
+

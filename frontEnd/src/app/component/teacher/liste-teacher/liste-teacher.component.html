@@ -1,0 +1,32 @@
+<div class="container mt-4">
+  <h2 class="text-center mb-4">Liste des Enseignants</h2>
+
+  <table class="table table-bordered table-hover">
+    <thead class="table-dark">
+    <tr>
+      <th>#</th>
+      <th>Nom</th>
+      <th>Prénom</th>
+      <th>Email</th>
+      <th>Téléphone</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let teacher of teachers; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ teacher.firstName }}</td>
+      <td>{{ teacher.lastName }}</td>
+      <td>{{ teacher.email }}</td>
+      <td>{{ teacher.tel }}</td>
+      <td>
+        <button class="btn btn-danger btn-sm" (click)="deleteTeacher(teacher._id)">
+          Supprimer
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="teachers.length === 0" class="text-center text-muted">Aucun enseignant trouvé.</p>
+</div>

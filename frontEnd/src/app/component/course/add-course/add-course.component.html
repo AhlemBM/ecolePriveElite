@@ -1,0 +1,92 @@
+<form [formGroup]="addCourseForm" (ngSubmit)="addOrEditCourse()">
+  <!-- Course Name Field -->
+  <div class="form-group">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Course Name"
+      formControlName="courseName"
+    />
+  </div>
+  <div *ngIf="courseName?.invalid && (courseName?.touched || courseName?.dirty)">
+    <div *ngIf="courseName?.errors?.['required']" style="color: red;">
+      Course Name is required
+    </div>
+  </div>
+
+  <!-- Duration Field -->
+  <div class="form-group">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Duration"
+      formControlName="duration"
+    />
+  </div>
+  <div *ngIf="duration?.invalid && (duration?.touched || duration?.dirty)">
+    <div *ngIf="duration?.errors?.['required']" style="color: red;">
+      Duration is required
+    </div>
+    <div *ngIf="duration?.errors?.['minlength']" style="color: red;">
+      Duration should have at least 3 characters
+    </div>
+  </div>
+
+  <!-- Description Field -->
+  <div class="form-group">
+    <textarea
+      class="form-control"
+      placeholder="Description"
+      formControlName="description"
+    ></textarea>
+  </div>
+  <div *ngIf="description?.invalid && (description?.touched || description?.dirty)">
+    <div *ngIf="description?.errors?.['required']" style="color: red;">
+      Description is required
+    </div>
+    <div *ngIf="description?.errors?.['minlength']" style="color: red;">
+      Description should have at least 10 characters
+    </div>
+  </div>
+
+  <!-- File Input for Avatar Image -->
+  <div class="form-group">
+    <input
+      type="file"
+      class="form-control"
+      #filePicker
+      (change)="onImageSelected($event)"
+      style="display: none;"
+    />
+  </div>
+  <div class="text-center mb-3">
+    <button class="btn btn-success" type="button" (click)="filePicker.click()">
+      Select Course Image
+    </button>
+    <br />
+    <img
+      *ngIf="imagePreview"
+      [src]="imagePreview"
+      class="mt-3 mb-3"
+      width="200px"
+      alt="Course Image Preview"
+    />
+    <h6 style="color: green;">{{ msgImg }}</h6>
+  </div>
+
+  <!-- Error Messages -->
+  <div class="text-center mb-3">
+    <h6 style="color: red;">{{ msgError }}</h6>
+  </div>
+
+  <!-- Submit Button -->
+  <div class="text-center mb-3">
+    <button
+      type="submit"
+      class="btn btn-secondary btn-block py-3"
+      [disabled]="!addCourseForm.valid"
+    >
+      {{ page }}
+    </button>
+  </div>
+</form>

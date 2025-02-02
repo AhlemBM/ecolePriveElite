@@ -1,0 +1,43 @@
+<form #loginForm="ngForm" (ngSubmit)="login()">
+
+  <div class="form-group">
+    <input type="email" class="form-control" placeholder="Email" name="email" [(ngModel)]="obj.email"
+           #email="ngModel" required>
+    <div *ngIf="loginForm.submitted && email.invalid" class="invalidfeedback">
+      <div *ngIf="email?.errors?.['required']" style="color: red;">Email is required</div>
+      <div *ngIf="email?.errors?.['email']" style="color: red;">Invalid email address</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <input type="password" class="form-control" placeholder="Password" name="password"
+           [(ngModel)]="obj.mdp" #mdp="ngModel" required minlength="4">
+    <div *ngIf="loginForm.submitted && mdp.invalid" class="invalidfeedback">
+      <div *ngIf="mdp?.errors?.['required']" style="color: red;">Password is required</div>
+      <div *ngIf="mdp?.errors?.['minlength']" style="color: red;">Password must be at least 4 characters long</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <select class="form-control" name="role" [(ngModel)]="obj.role" #role="ngModel" required>
+      <option value="" disabled selected>Select your role</option>
+      <option value="student">Student</option>
+      <option value="teacher">Teacher</option>
+      <option value="parent">Parent</option>
+      <option value="admin">Admin</option>
+    </select>
+    <div *ngIf="loginForm.submitted && role.invalid" class="invalidfeedback">
+      <div *ngIf="role?.errors?.['required']" style="color: red;">Role is required</div>
+    </div>
+  </div>
+
+
+  <div class="text-center mb-3">
+    <h6 style="color: red;">{{erreur}}</h6>
+  </div>
+
+  <div class="form-group">
+    <input type="submit" class="btn btn-primary py-3 px-5" value="Login" [disabled]="!loginForm.valid">
+  </div>
+
+</form>

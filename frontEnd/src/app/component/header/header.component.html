@@ -1,0 +1,58 @@
+<div class="container-fluid shadow custom-navbar">
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand" routerLink="">
+      <img src="assets/img/logo.png" width="150px" alt="Logo">
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+      <ul class="navbar-nav mx-auto align-items-center">
+
+        <!-- Lien Home et Courses -->
+        <li class="nav-item">
+          <a routerLink="" class="nav-link active">Home</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="courses" class="nav-link">Courses</a>
+        </li>
+
+        <!-- Menu pour l'Admin (Liste et Ajout) -->
+        <li class="nav-item dropdown" *ngIf="isLoggedIn && userRole === 'admin'">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Liste</a>
+          <ul class="dropdown-menu">
+            <li><a routerLink="listTeacher" class="dropdown-item">Liste des Teachers</a></li>
+            <li><a routerLink="listStudent" class="dropdown-item">Liste des Students</a></li>
+            <li><a routerLink="listParent" class="dropdown-item">Liste des Parents</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown" *ngIf="isLoggedIn && userRole === 'admin'">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Ajouter</a>
+          <ul class="dropdown-menu">
+            <li><a routerLink="addTeacher" class="dropdown-item">Ajouter Teacher</a></li>
+            <li><a routerLink="addStudent" class="dropdown-item">Ajouter Student</a></li>
+            <li><a routerLink="addParent" class="dropdown-item">Ajouter Parent</a></li>
+          </ul>
+        </li>
+
+        <!-- Profil et Déconnexion -->
+
+        <li class="nav-item" *ngIf="isLoggedIn">
+          <a class="btn btn-danger logout-btn" (click)="logout()">Logout</a>
+        </li>
+
+        <!-- Connexion / Inscription -->
+        <li class="nav-item" *ngIf="!isLoggedIn">
+          <a routerLink="login" class="btn btn-outline-success">Login</a>
+        </li>
+        <li class="nav-item" *ngIf="!isLoggedIn">
+          <a routerLink="signup" class="btn btn-outline-primary">Signup</a>
+        </li>
+
+      </ul>
+    </div>
+  </nav>
+</div>

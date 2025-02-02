@@ -1,0 +1,25 @@
+<!-- Child Phone (only for Parent) -->
+<div *ngIf="signupForm.controls['role'].value === 'parent'">
+  <div class="form-group">
+    <input type="tel" class="form-control p-4" formControlName="childTel" placeholder="Child's phone number">
+  </div>
+  <div *ngIf="signupForm.controls['childTel'].invalid &&
+      (signupForm.controls['childTel'].touched || signupForm.controls['childTel'].dirty)">
+    <div *ngIf="signupForm.controls['childTel'].errors?.['required']" style="color: red;">
+      Child's phone number is required
+    </div>
+  </div>
+</div>
+
+<!-- Speciality (only for Teacher) -->
+<div *ngIf="signupForm.controls['role'].value === 'teacher'">
+  <div class="form-group">
+    <input type="text" class="form-control p-4" formControlName="speciality" placeholder="Speciality">
+  </div>
+  <div *ngIf="signupForm.controls['speciality'].invalid &&
+      (signupForm.controls['speciality'].touched || signupForm.controls['speciality'].dirty)">
+    <div *ngIf="signupForm.controls['speciality'].errors?.['required']" style="color: red;">
+      Speciality is required
+    </div>
+  </div>
+</div>
