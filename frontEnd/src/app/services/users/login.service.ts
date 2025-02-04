@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import { Observable } from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -46,5 +46,18 @@ export class LoginService {
   private decodeToken(token: string): any {
     const payload = token.split('.')[1];
     return JSON.parse(atob(payload));
+  }
+
+
+  private authStatus = new BehaviorSubject<boolean>(this.isLoggedIn());
+  authStatus$ = this.authStatus.asObservable();
+
+
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
+  }
+
+  updateAuthStatus(status: boolean): void {
+    this.authStatus.next(status);
   }
 }

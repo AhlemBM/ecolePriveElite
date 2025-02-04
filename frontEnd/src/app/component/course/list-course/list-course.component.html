@@ -5,7 +5,10 @@
   <div *ngIf="courses.length > 0; else noCourses">
     <div *ngFor="let course of courses" class="card my-3">
       <div class="card-body">
-        <h5 class="card-title">{{ course.title }}</h5>
+        <!-- Clique sur le nom du cours pour aller aux détails -->
+        <h5 class="card-title" (click)="viewCourseDetails(course._id)" style="cursor: pointer;">
+          {{ course.courseName }}
+        </h5>
         <p class="card-text">{{ course.description }}</p>
         <button class="btn btn-warning" (click)="editCourse(course._id)">Edit</button>
         <button class="btn btn-danger" (click)="deleteCourse(course._id)">Delete</button>

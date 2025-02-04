@@ -23,6 +23,9 @@ import { AddTeacherComponent } from './component/teacher/add-teacher/add-teacher
 import { ListeTeacherComponent } from './component/teacher/liste-teacher/liste-teacher.component';
 import { AddStudentComponent } from './component/student/add-student/add-student.component';
 import { ListStudentComponent } from './component/student/list-student/list-student.component';
+import { DetailsCoursComponent } from './component/course/details-cours/details-cours.component';
+
+import { ListCoursStudentComponent } from './component/student/list-cours-student/list-cours-student.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +48,9 @@ import { ListStudentComponent } from './component/student/list-student/list-stud
     ListeTeacherComponent,
     AddStudentComponent,
     ListStudentComponent,
+    DetailsCoursComponent,
+
+    ListCoursStudentComponent,
 
 
   ],

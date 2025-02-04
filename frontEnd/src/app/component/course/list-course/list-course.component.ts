@@ -59,4 +59,10 @@ export class ListCourseComponent implements OnInit {
       );
     }
   }
+
+  // Méthode pour rediriger vers la page de détails du cours
+  viewCourseDetails(courseId: string): void {
+    this.router.navigate([`/detailsCours/${courseId}`]);  // Redirige vers la page de détails
+  }
+
 }

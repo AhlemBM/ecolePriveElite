@@ -1,0 +1,69 @@
+/* Appliquer une bordure et espacement entre les cellules */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+/* Style pour les entêtes */
+thead {
+  background-color: #f8f9fa;
+}
+
+th {
+  text-align: left;
+  padding: 10px;
+  font-weight: bold;
+  color: #495057;
+  background-color: #007bff;
+  color: white;
+}
+
+/* Style pour les lignes du tableau */
+tbody tr {
+  border-bottom: 1px solid #ddd;
+}
+
+td {
+  padding: 8px;
+  text-align: left;
+  font-size: 14px;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Effet au survol des lignes */
+tbody tr:hover {
+  background-color: #e9ecef;
+}
+
+/* Style pour le bouton "Give Grade" */
+button.btn {
+  padding: 8px 12px;
+  border: none;
+  background-color: #28a745;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+button.btn:hover {
+  background-color: #218838;
+}
+
+/* Style pour le champ de saisie de la note */
+input[type="number"] {
+  width: 80px;
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid #ced4da;
+}
+
+/* Ajouter un espacement entre la table et la zone en dessous */
+h2 {
+  margin-top: 30px;
+}

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from "../../services/users/login.service";
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -16,7 +17,11 @@ export class LoginComponent implements OnInit {
 
   erreur: string = '';
 
-  constructor(private authService: LoginService, private router: Router) {}
+  constructor(
+    private authService: LoginService,
+    private router: Router,
+    //private authStatusService: AuthService // Injecter AuthService
+  ) {}
 
   login() {
     if (this.obj.email && this.obj.mdp && this.obj.role) {
@@ -24,22 +29,18 @@ export class LoginComponent implements OnInit {
         response => {
           console.log('Login successful', response);
 
-          // Stocker le token JWT dans le localStorage
+          // Stocker les données utilisateur
           localStorage.setItem('token', response.token);
-
-          // Vérifier la présence de l'ID de l'utilisateur dans la réponse
-          const userId = response.userId || response.user?._id;  // Récupérer l'ID de l'utilisateur
-
-          // Si l'ID est présent, rediriger vers la page de profil
-          if (userId) {
-            // Stocker l'ID dans le localStorage si vous voulez y accéder plus tard
-            localStorage.setItem('user', JSON.stringify(response.user));
-
-            // Rediriger vers la page de profil avec l'ID
-            this.router.navigate([`/profile/${userId}`]);
-          } else {
-            this.erreur = 'User ID is missing in the response.';
+          localStorage.setItem('user', JSON.stringify(response.user));
+          if (response.user?.role) {
+            localStorage.setItem('role', response.user.role);
           }
+
+          // Mettre à jour l'état global d'authentification
+          this.authService.updateAuthStatus(true);
+
+          // Rediriger vers la page d'accueil
+          this.router.navigate(['/home']);
         },
         error => {
           this.erreur = 'Invalid credentials or server error';

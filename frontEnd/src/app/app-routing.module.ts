@@ -13,6 +13,8 @@ import {ListStudentComponent} from "./component/student/list-student/list-studen
 import {AddTeacherComponent} from "./component/teacher/add-teacher/add-teacher.component";
 import {AddStudentComponent} from "./component/student/add-student/add-student.component";
 import {ListeTeacherComponent} from "./component/teacher/liste-teacher/liste-teacher.component";
+import {DetailsCoursComponent} from "./component/course/details-cours/details-cours.component";
+import {ListCoursStudentComponent} from "./component/student/list-cours-student/list-cours-student.component";
 
 
 const routes: Routes = [
@@ -27,6 +29,7 @@ const routes: Routes = [
   {path:"profile/:id", component:ProfileComponent},
   {path:"addCourse", component:AddCourseComponent},
   {path:"courses", component:ListCourseComponent},
+  {path:"detailsCours/:id", component:DetailsCoursComponent },
 
   {path:"login", component:LoginComponent},
 
@@ -36,7 +39,7 @@ const routes: Routes = [
   { path: 'listTeacher', component: ListeTeacherComponent },
   { path: 'listStudent', component: ListStudentComponent },
  /* { path: 'listParent', component: ListParentComponent },*/
-
+  { path: 'listCours', component: ListCoursStudentComponent },
   // Routes pour les ajouts
   { path: 'addTeacher', component: AddTeacherComponent },
   { path: 'addStudent', component: AddStudentComponent },

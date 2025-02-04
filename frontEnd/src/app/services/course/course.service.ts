@@ -18,7 +18,7 @@ export class CourseService {
   }
   // Méthode pour récupérer les cours d'un enseignant par ID
   getCoursesByTeacherId(teacherId: string): Observable<any> {
-    return this.http.get(`${this.apiUrll}/courses/?id=${teacherId}`);
+    return this.http.get(`${this.apiUrll}/courses/teacher/${teacherId}`);
   }
 
   // Méthode pour supprimer un cours par ID
@@ -29,5 +29,17 @@ export class CourseService {
   // Méthode pour éditer un cours
   editCourse(courseId: string, updatedData: any): Observable<any> {
     return this.http.put(`${this.apiUrll}/courses/${courseId}`, updatedData);
+  }
+
+  // Récupérer les détails d'un cours
+  getCourseById(courseId: string): Observable<any> {
+    return this.http.get(`${this.apiUrll}/courses/${courseId}`);
+  }
+
+  updateGradeAndEvaluation(courseId: string, studentId: string, grade: number, evaluation: string): Observable<any> {
+    return this.http.put(`${this.apiUrll}/courses/grade/${courseId}/${studentId}`, { grade, evaluation });
+  }
+  getCoursesByStudentId(studentId: string): Observable<any> {
+    return this.http.get(`${this.apiUrll}/courses/student/${studentId}`);
   }
 }

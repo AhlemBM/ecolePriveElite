@@ -1,0 +1,40 @@
+<div *ngIf="course">
+  <h1>{{ course.courseName }}</h1>
+  <p>{{ course.description }}</p>
+
+  <h2>Students</h2>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Grade</th>
+      <th>Evaluation</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let student of course.students">
+      <td>{{ student.studentId.firstName }} {{ student.studentId.lastName }}</td>
+      <td>{{ student.studentId.email }}</td>
+      <td>
+          <span *ngIf="!student.isEditing">
+            {{ student.note ? student.note : 'Not graded' }}
+          </span>
+        <input *ngIf="student.isEditing" type="number" [(ngModel)]="student.note" min="0" max="20" placeholder="Grade" class="form-control mb-2" />
+      </td>
+      <td>
+          <span *ngIf="!student.isEditing">
+            {{ student.evaluation ? student.evaluation : 'No evaluation' }}
+          </span>
+        <input *ngIf="student.isEditing" type="text" [(ngModel)]="student.newEvaluation" placeholder="Evaluation" class="form-control mb-2" />
+      </td>
+      <td>
+        <button *ngIf="!student.isEditing" class="btn btn-primary" (click)="editStudent(student)">Edit</button>
+        <button *ngIf="student.isEditing" class="btn btn-success" (click)="saveGradeAndEvaluation(student)">Save</button>
+        <button *ngIf="student.isEditing" class="btn btn-secondary" (click)="cancelEdit(student)">Cancel</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

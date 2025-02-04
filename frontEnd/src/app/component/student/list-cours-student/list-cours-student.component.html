@@ -1,0 +1,38 @@
+<div class="container mt-4">
+  <h2>My Courses</h2>
+
+  <!-- Loader -->
+  <div *ngIf="loading" class="alert alert-info">Loading courses...</div>
+
+  <!-- Erreur si aucun cours -->
+  <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+  <!-- Affichage des cours -->
+  <div *ngIf="courses.length > 0; else noCourses">
+    <table class="table table-bordered table-hover">
+      <thead class="table-dark">
+      <tr>
+        <th>Course Name</th>
+        <th>Duration</th>
+        <th>Teacher</th>
+        <th>Grade</th>
+        <th>Evaluation</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let course of courses">
+        <td>{{ course.courseName }}</td>
+        <td>{{ course.duration }} hours</td>
+        <td>{{ course.teacher }}</td>
+        <td>{{ course.note ? course.note : 'Not graded' }}</td>
+        <td>{{ course.evaluation ? course.evaluation : 'No evaluation' }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Si aucun cours trouvé -->
+  <ng-template #noCourses>
+    <p class="text-muted">You are not enrolled in any courses.</p>
+  </ng-template>
+</div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/users/user.service';
+import {LoginService} from "../../services/users/login.service";
 
 @Component({
   selector: 'app-header',
@@ -8,39 +9,38 @@ import { UserService } from '../../services/users/user.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  user: any = {};  // Informations de l'utilisateur connecté
-  isLoggedIn: boolean = false;  // Vérifie si l'utilisateur est connecté
-  userRole: string = ''; // Rôle de l'utilisateur (admin, teacher, student, etc.)
+  isLoggedIn = false;
+  userRole: string | null = null;
+  userId: string | null = null;
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private router: Router, private authService: LoginService) {}
 
   ngOnInit(): void {
-    this.checkLoginStatus(); // Vérifier le statut de la connexion
+    this.loadUserData();
+
+    // Écouter les changements d'authentification en temps réel
+    this.authService.authStatus$.subscribe((status) => {
+      this.isLoggedIn = status;
+      this.loadUserData();
+    });
   }
 
-  // Vérifier si l'utilisateur est connecté
-  checkLoginStatus(): void {
-    const token = localStorage.getItem('token'); // Vérifier si le token est présent dans le localStorage
-    if (token) {
-      this.isLoggedIn = true;
-      const decodedToken = this.decodeToken(token); // Décoder le token pour récupérer les informations de l'utilisateur
-      this.user = decodedToken.user;
-      this.userRole = decodedToken.role; // Récupérer le rôle de l'utilisateur
-    } else {
-      this.isLoggedIn = false;
+  loadUserData(): void {
+    this.isLoggedIn = !!localStorage.getItem('token');
+    this.userRole = localStorage.getItem('role');
+    const user = localStorage.getItem('user');
+
+    if (user) {
+      this.userId = JSON.parse(user)._id;
     }
   }
 
-  // Décoder le token pour récupérer les informations de l'utilisateur
-  decodeToken(token: string): any {
-    const decodedToken = JSON.parse(atob(token.split('.')[1])); // Décoder la partie payload du JWT
-    return decodedToken;
-  }
-
-  // Méthode de déconnexion
   logout(): void {
-    localStorage.removeItem('token'); // Supprimer le token du localStorage
-    this.isLoggedIn = false; // Mettre à jour l'état de connexion
-    this.router.navigate(['/login']); // Rediriger vers la page de connexion
+    localStorage.clear();
+    this.isLoggedIn = false;
+    this.userRole = null;
+    this.userId = null;
+    this.authService.updateAuthStatus(false); // Mettre à jour l'état global
+    this.router.navigate(['/login']);
   }
 }
