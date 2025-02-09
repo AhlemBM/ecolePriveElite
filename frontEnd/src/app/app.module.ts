@@ -26,6 +26,8 @@ import { ListStudentComponent } from './component/student/list-student/list-stud
 import { DetailsCoursComponent } from './component/course/details-cours/details-cours.component';
 
 import { ListCoursStudentComponent } from './component/student/list-cours-student/list-cours-student.component';
+import { ValidationComponent } from './component/validation/validation.component';
+import { LoginAdminComponent } from './component/admin/login-admin/login-admin.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +53,8 @@ import { ListCoursStudentComponent } from './component/student/list-cours-studen
     DetailsCoursComponent,
 
     ListCoursStudentComponent,
+     ValidationComponent,
+     LoginAdminComponent,
 
 
   ],

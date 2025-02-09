@@ -41,6 +41,7 @@ app.use((req, res, next) => {
 app.use('/users', userRoutes);
 app.use('/courses', coursRoutes);
 
+
 // ✅ 6. Connexion à MongoDB
 mongoose.connect('mongodb+srv://ahlem18896:Nmlsn16NlgB2LanO@cluster0.maid4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
     .then(() => console.log("✅ Connected to MongoDB"))

@@ -51,13 +51,19 @@ export class LoginService {
 
   private authStatus = new BehaviorSubject<boolean>(this.isLoggedIn());
   authStatus$ = this.authStatus.asObservable();
+  // Méthode pour mettre à jour l'état d'authentification
 
 
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
   }
 
+  // Méthode pour mettre à jour l'état d'authentification
   updateAuthStatus(status: boolean): void {
     this.authStatus.next(status);
+  }
+  logout(): void {
+    localStorage.clear();
+    this.authStatus.next(false); // Déconnexion
   }
 }

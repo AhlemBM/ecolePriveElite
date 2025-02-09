@@ -11,63 +11,76 @@
     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
       <ul class="navbar-nav mx-auto align-items-center">
 
-        <!-- Lien Home et Courses -->
+        <!-- Home toujours visible -->
         <li class="nav-item">
           <a routerLink="" class="nav-link active">Home</a>
         </li>
 
-        <!-- Menu pour l'Admin (Liste et Ajout) -->
-        <ng-container *ngIf="isLoggedIn && userRole === 'admin'">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Liste</a>
-            <ul class="dropdown-menu">
-              <li><a routerLink="listTeacher" class="dropdown-item">Liste des Teachers</a></li>
-              <li><a routerLink="listStudent" class="dropdown-item">Liste des Students</a></li>
-              <li><a routerLink="listParent" class="dropdown-item">Liste des Parents</a></li>
-            </ul>
+        <!-- Avant connexion -->
+        <ng-container *ngIf="!isLoggedIn">
+          <li class="nav-item">
+            <a routerLink="login" class="btn btn-outline-success">Login</a>
           </li>
-
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Ajouter</a>
-            <ul class="dropdown-menu">
-              <li><a routerLink="addTeacher" class="dropdown-item">Ajouter Teacher</a></li>
-              <li><a routerLink="addStudent" class="dropdown-item">Ajouter Student</a></li>
-              <li><a routerLink="addParent" class="dropdown-item">Ajouter Parent</a></li>
-            </ul>
+          <li class="nav-item">
+            <a routerLink="signup" class="btn btn-primary ms-2">Signup</a>
           </li>
         </ng-container>
 
-        <!-- Menu pour le Teacher -->
-        <ng-container *ngIf="isLoggedIn && userRole === 'teacher'">
+        <!-- Après connexion -->
+        <ng-container *ngIf="isLoggedIn">
+          <!-- 🟢 Menu pour l'Admin -->
+          <ng-container *ngIf="userRole === 'admin'">
+            <li class="nav-item">
+              <a routerLink="valideListe" class="dropdown-item">profile en attente</a>
+            </li>
+            <li class="nav-item dropdown">
+
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Liste</a>
+              <ul class="dropdown-menu">
+                <li><a routerLink="listTeacher" class="dropdown-item">Liste des Teachers</a></li>
+                <li><a routerLink="listStudent" class="dropdown-item">Liste des Students</a></li>
+                <li><a routerLink="listParent" class="dropdown-item">Liste des Parents</a></li>
+
+              </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Ajouter</a>
+              <ul class="dropdown-menu">
+                <li><a routerLink="addTeacher" class="dropdown-item">Ajouter Teacher</a></li>
+                <li><a routerLink="addStudent" class="dropdown-item">Ajouter Student</a></li>
+                <li><a routerLink="addParent" class="dropdown-item">Ajouter Parent</a></li>
+              </ul>
+            </li>
+          </ng-container>
+
+          <!-- 🔵 Menu pour le Teacher -->
+          <ng-container *ngIf="userRole === 'teacher'">
+            <li class="nav-item">
+              <a routerLink="addCourse" class="nav-link">Ajouter Cours</a>
+            </li>
+            <li class="nav-item">
+              <a routerLink="courses" class="nav-link">Mes Cours</a>
+            </li>
+          </ng-container>
+
+          <!-- 🔴 Menu pour le Student -->
+          <ng-container *ngIf="userRole === 'student'">
+            <li class="nav-item">
+              <a routerLink="listCours" class="nav-link">Mes Cours</a>
+            </li>
+          </ng-container>
+
+          <!-- Profil -->
           <li class="nav-item">
-            <a routerLink="addCourse" class="nav-link">Ajouter Cours</a>
+            <a [routerLink]="'/profile/' + userId" class="nav-link">Mon Profil</a>
           </li>
+
+          <!-- Déconnexion -->
           <li class="nav-item">
-            <a routerLink="courses" class="nav-link">Mes Cours</a>
+            <a class="btn btn-danger logout-btn" (click)="logout()">Logout</a>
           </li>
         </ng-container>
-
-        <!-- Menu pour le Student -->
-        <ng-container *ngIf="isLoggedIn && userRole === 'student'">
-          <li class="nav-item">
-            <a routerLink="listCours" class="nav-link">Mes Cours</a>
-          </li>
-        </ng-container>
-
-        <!-- Lien vers le Profil -->
-        <li class="nav-item" *ngIf="isLoggedIn">
-          <a [routerLink]="'/profile/' + userId" class="nav-link">Mon Profil</a>
-        </li>
-
-        <!-- Déconnexion -->
-        <li class="nav-item" *ngIf="isLoggedIn">
-          <a class="btn btn-danger logout-btn" (click)="logout()">Logout</a>
-        </li>
-
-        <!-- Connexion / Inscription -->
-        <li class="nav-item" *ngIf="!isLoggedIn">
-          <a routerLink="login" class="btn btn-outline-success">Login</a>
-        </li>
 
       </ul>
     </div>

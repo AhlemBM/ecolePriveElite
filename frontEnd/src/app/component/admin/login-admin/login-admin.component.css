@@ -1,0 +1,15 @@
+.container {
+  max-width: 500px;
+  margin-top: 100px;
+}
+
+form {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+button {
+  width: 100%;
+}

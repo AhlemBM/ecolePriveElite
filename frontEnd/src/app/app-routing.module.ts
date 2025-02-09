@@ -15,6 +15,8 @@ import {AddStudentComponent} from "./component/student/add-student/add-student.c
 import {ListeTeacherComponent} from "./component/teacher/liste-teacher/liste-teacher.component";
 import {DetailsCoursComponent} from "./component/course/details-cours/details-cours.component";
 import {ListCoursStudentComponent} from "./component/student/list-cours-student/list-cours-student.component";
+import {LoginAdminComponent} from "./component/admin/login-admin/login-admin.component";
+import {ValidationComponent} from "./component/validation/validation.component";
 
 
 const routes: Routes = [
@@ -25,6 +27,7 @@ const routes: Routes = [
   {path:"signupTeacher", component:SignupComponent},
   {path:"signupStudent", component:SignupComponent},
   {path:"signupParent", component:SignupComponent},
+  {path:"signup", component:SignupComponent},
   {path:"profile", component:ProfileComponent},
   {path:"profile/:id", component:ProfileComponent},
   {path:"addCourse", component:AddCourseComponent},
@@ -34,6 +37,9 @@ const routes: Routes = [
   {path:"login", component:LoginComponent},
 
   {path:"addCourse", component:AddCourseComponent},
+  { path: 'admin-login', component: LoginAdminComponent },
+  { path: 'valideListe', component: ValidationComponent },
+
 
   // Routes pour les listes
   { path: 'listTeacher', component: ListeTeacherComponent },

@@ -1,0 +1,45 @@
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Connexion Admin</h2>
+
+  <form (ngSubmit)="onLogin()" [formGroup]="loginForm">
+    <!-- Champ Email -->
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input
+        type="email"
+        id="email"
+        class="form-control"
+        formControlName="email"
+        placeholder="Entrez votre email"
+      />
+      <div *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched" class="text-danger">
+        L'email est requis et doit être valide.
+      </div>
+    </div>
+
+    <!-- Champ Mot de Passe -->
+    <div class="form-group mt-3">
+      <label for="password">Mot de passe</label>
+      <input
+        type="password"
+        id="password"
+        class="form-control"
+        formControlName="password"
+        placeholder="Entrez votre mot de passe"
+      />
+      <div *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched" class="text-danger">
+        Le mot de passe est requis.
+      </div>
+    </div>
+
+    <!-- Bouton de soumission -->
+    <button type="submit" class="btn btn-primary mt-4" [disabled]="loginForm.invalid">
+      Connexion
+    </button>
+
+    <!-- Affichage des erreurs -->
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+      {{ errorMessage }}
+    </div>
+  </form>
+</div>

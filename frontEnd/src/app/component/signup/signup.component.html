@@ -1,25 +1,97 @@
-<!-- Child Phone (only for Parent) -->
-<div *ngIf="signupForm.controls['role'].value === 'parent'">
-  <div class="form-group">
-    <input type="tel" class="form-control p-4" formControlName="childTel" placeholder="Child's phone number">
-  </div>
-  <div *ngIf="signupForm.controls['childTel'].invalid &&
-      (signupForm.controls['childTel'].touched || signupForm.controls['childTel'].dirty)">
-    <div *ngIf="signupForm.controls['childTel'].errors?.['required']" style="color: red;">
-      Child's phone number is required
-    </div>
-  </div>
-</div>
+<div class="container mt-5">
+  <h2 class="text-center">Signup</h2>
 
-<!-- Speciality (only for Teacher) -->
-<div *ngIf="signupForm.controls['role'].value === 'teacher'">
-  <div class="form-group">
-    <input type="text" class="form-control p-4" formControlName="speciality" placeholder="Speciality">
-  </div>
-  <div *ngIf="signupForm.controls['speciality'].invalid &&
-      (signupForm.controls['speciality'].touched || signupForm.controls['speciality'].dirty)">
-    <div *ngIf="signupForm.controls['speciality'].errors?.['required']" style="color: red;">
-      Speciality is required
+  <form [formGroup]="signupForm" (ngSubmit)="onSignup()">
+
+    <!-- First Name -->
+    <div class="form-group">
+      <input type="text" class="form-control p-4" formControlName="firstName" placeholder="First Name">
+      <div *ngIf="signupForm.controls['firstName'].invalid && (signupForm.controls['firstName'].touched || signupForm.controls['firstName'].dirty)">
+        <div *ngIf="signupForm.controls['firstName'].errors?.['required']" style="color: red;">
+          First Name is required
+        </div>
+      </div>
     </div>
-  </div>
+
+    <!-- Last Name -->
+    <div class="form-group">
+      <input type="text" class="form-control p-4" formControlName="lastName" placeholder="Last Name">
+      <div *ngIf="signupForm.controls['lastName'].invalid && (signupForm.controls['lastName'].touched || signupForm.controls['lastName'].dirty)">
+        <div *ngIf="signupForm.controls['lastName'].errors?.['required']" style="color: red;">
+          Last Name is required
+        </div>
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+      <input type="email" class="form-control p-4" formControlName="email" placeholder="Email">
+      <div *ngIf="signupForm.controls['email'].invalid && (signupForm.controls['email'].touched || signupForm.controls['email'].dirty)">
+        <div *ngIf="signupForm.controls['email'].errors?.['required']" style="color: red;">
+          Email is required
+        </div>
+        <div *ngIf="signupForm.controls['email'].errors?.['email']" style="color: red;">
+          Invalid email format
+        </div>
+      </div>
+    </div>
+
+    <!-- Password -->
+    <div class="form-group">
+      <input type="password" class="form-control p-4" formControlName="password" placeholder="Password">
+      <div *ngIf="signupForm.controls['password'].invalid && (signupForm.controls['password'].touched || signupForm.controls['password'].dirty)">
+        <div *ngIf="signupForm.controls['password'].errors?.['required']" style="color: red;">
+          Password is required
+        </div>
+        <div *ngIf="signupForm.controls['password'].errors?.['minlength']" style="color: red;">
+          Password must be at least 6 characters long
+        </div>
+      </div>
+    </div>
+
+    <!-- Role -->
+    <div class="form-group">
+      <select class="form-control p-4" formControlName="role">
+        <option value="">Select Role</option>
+        <option value="admin">Admin</option>
+        <option value="teacher">Teacher</option>
+        <option value="student">Student</option>
+        <option value="parent">Parent</option>
+      </select>
+      <div *ngIf="signupForm.controls['role'].invalid && (signupForm.controls['role'].touched || signupForm.controls['role'].dirty)">
+        <div *ngIf="signupForm.controls['role'].errors?.['required']" style="color: red;">
+          Role is required
+        </div>
+      </div>
+    </div>
+
+    <!-- Child Phone (only for Parent) -->
+    <div *ngIf="signupForm.controls['role'].value === 'parent'">
+      <div class="form-group">
+        <input type="tel" class="form-control p-4" formControlName="childTel" placeholder="Child's phone number">
+      </div>
+      <div *ngIf="signupForm.controls['childTel'].invalid && (signupForm.controls['childTel'].touched || signupForm.controls['childTel'].dirty)">
+        <div *ngIf="signupForm.controls['childTel'].errors?.['required']" style="color: red;">
+          Child's phone number is required
+        </div>
+      </div>
+    </div>
+
+    <!-- Speciality (only for Teacher) -->
+    <div *ngIf="signupForm.controls['role'].value === 'teacher'">
+      <div class="form-group">
+        <input type="text" class="form-control p-4" formControlName="speciality" placeholder="Speciality">
+      </div>
+      <div *ngIf="signupForm.controls['speciality'].invalid && (signupForm.controls['speciality'].touched || signupForm.controls['speciality'].dirty)">
+        <div *ngIf="signupForm.controls['speciality'].errors?.['required']" style="color: red;">
+          Speciality is required
+        </div>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary btn-block mt-3" [disabled]="signupForm.invalid">
+      Signup
+    </button>
+  </form>
 </div>

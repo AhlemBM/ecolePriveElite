@@ -23,6 +23,7 @@ const userSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Course"
     }],
+    isValidated: { type: Boolean, default: false }, // Champ pour validation par l'admin
     studentCourses: [{
         courseId: {
             type: mongoose.Schema.Types.ObjectId,

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from '../../services/users/user.service';
-import {LoginService} from "../../services/users/login.service";
+import { LoginService } from '../../services/users/login.service';
 
 @Component({
   selector: 'app-header',
@@ -18,7 +17,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.loadUserData();
 
-    // Écouter les changements d'authentification en temps réel
+    // Mise à jour automatique sur changement d'état
     this.authService.authStatus$.subscribe((status) => {
       this.isLoggedIn = status;
       this.loadUserData();
@@ -26,21 +25,17 @@ export class HeaderComponent implements OnInit {
   }
 
   loadUserData(): void {
-    this.isLoggedIn = !!localStorage.getItem('token');
-    this.userRole = localStorage.getItem('role');
+    const token = localStorage.getItem('token');
+    const role = localStorage.getItem('role');
     const user = localStorage.getItem('user');
 
-    if (user) {
-      this.userId = JSON.parse(user)._id;
-    }
+    this.isLoggedIn = !!token;
+    this.userRole = role;
+    this.userId = user ? JSON.parse(user)._id : null;
   }
 
   logout(): void {
-    localStorage.clear();
-    this.isLoggedIn = false;
-    this.userRole = null;
-    this.userId = null;
-    this.authService.updateAuthStatus(false); // Mettre à jour l'état global
+    this.authService.logout();
     this.router.navigate(['/login']);
   }
 }

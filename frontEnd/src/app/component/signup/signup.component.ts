@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import {SignupService} from "../../services/users/signup.service";
 
+import {SignupService} from "../../services/users/signup.service";
 
 @Component({
   selector: 'app-signup',
@@ -10,41 +10,56 @@ import {SignupService} from "../../services/users/signup.service";
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
+  signupForm!: FormGroup;
 
+  constructor(
+    private fb: FormBuilder,
+    private authService: SignupService,
+    private router: Router
+  ) {}
 
-  signupForm: FormGroup = this.fb.group({  // Initialisation directe dans la déclaration
-    firstName: ['', [Validators.required, Validators.minLength(3)]],
-    lastName: ['', [Validators.required, Validators.minLength(4)]],
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required]],
-    role: ['', Validators.required],
-    gender: ['', Validators.required],
-    address: ['', [Validators.required, Validators.minLength(3)]],
-    tel: ['', Validators.required],
-    childTel: [''],        // Champ conditionnel pour le rôle parent
-    speciality: [''],      // Champ conditionnel pour le rôle enseignant
-  });
+  ngOnInit(): void {
+    this.signupForm = this.fb.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      role: ['', Validators.required],
+      childTel: [''],  // Optionnel pour Parent
+      speciality: ['']  // Optionnel pour Teacher
+    });
 
-  msgError: string = '';
-  page: string = 'Sign Up';
+    // Dynamique: rendre les champs requis selon le rôle
+    this.signupForm.get('role')?.valueChanges.subscribe(role => {
+      if (role === 'parent') {
+        this.signupForm.get('childTel')?.setValidators([Validators.required]);
+      } else {
+        this.signupForm.get('childTel')?.clearValidators();
+      }
 
-  constructor(private fb: FormBuilder, private authService: SignupService, private router: Router) {}
+      if (role === 'teacher') {
+        this.signupForm.get('speciality')?.setValidators([Validators.required]);
+      } else {
+        this.signupForm.get('speciality')?.clearValidators();
+      }
 
-  ngOnInit(): void {}
+      this.signupForm.get('childTel')?.updateValueAndValidity();
+      this.signupForm.get('speciality')?.updateValueAndValidity();
+    });
+  }
 
-  signupOrEdit() {
+  onSignup(): void {
     if (this.signupForm.valid) {
-      const userData = this.signupForm.value;
-      this.authService.signup(userData).subscribe(
-        response => {
+      this.authService.signup(this.signupForm.value).subscribe(
+        (response) => {
+          alert('Signup successful');
           this.router.navigate(['/login']);
         },
-        error => {
-          this.msgError = error.error.msg;
+        (error) => {
+          console.error(error);
+          alert('Signup failed');
         }
       );
-    } else {
-      this.msgError = 'Please fill in all required fields';
     }
   }
 }
